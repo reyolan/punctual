@@ -1,0 +1,25 @@
+{
+  "name": "punctual",
+  "private": true,
+  "dependencies": {
+    "@rails/actioncable": "^6.0.0",
+    "@rails/activestorage": "^6.0.0",
+    "@rails/ujs": "^6.0.0",
+    "@rails/webpacker": "5.4.3",
+    "turbolinks": "^5.2.0",
+    "webpack": "^4.46.0",
+    "webpack-cli": "^3.3.12"
+  },
+  "version": "0.1.0",
+  "devDependencies": {
+    "@types/rails__activestorage": "^7.0.1",
+    "@types/rails__ujs": "^6.0.1",
+    "@types/turbolinks": "^5.2.0",
+    "autoprefixer": "^10.4.7",
+    "postcss": "^8.4.14",
+    "tailwindcss": "^3.0.24",
+    "vite": "^2.9.1",
+    "vite-plugin-ruby": "^3.0.9",
+    "webpack-dev-server": "^3"
+  }
+}
