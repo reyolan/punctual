@@ -1,5 +1,8 @@
-<%= form_with model: @category do %>
-  <%= f.label :name %>
-  <%= f.text :name %>
-  <%= f.submit, "Add Category" %>
+<%= render 'shared/error_msg', object: @category %>
+<%= form_with model: @category, html: {class: 'flex flex-col items-center gap-4'} do |f| %>
+  <div class= 'flex flex-col gap-1'>
+    <%= f.label :name, class: 'text-2xl' %>
+    <%= f.text_field :name, class: 'rounded-md p-2 w-64 text-xl' %>
+  </div>
+  <%= f.submit yield(:form_button_text), class: 'bg-slate-400 p-2 rounded-md cursor-pointer font-medium text-lg hover:bg-slate-500' %>
 <% end %>

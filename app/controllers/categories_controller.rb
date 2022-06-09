@@ -3,7 +3,7 @@ class CategoriesController < ApplicationController
   before_action :set_category, only: %i[destroy show edit update]
 
   def index
-    @categories = Categories.all.order(name: :asc)
+    @categories = current_user.categories.all.order(name: :asc)
   end
 
   def show
@@ -15,7 +15,7 @@ class CategoriesController < ApplicationController
   end
 
   def create
-    @category = Category.new(category_params)
+    @category = current_user.categories.build(category_params)
     if @category.save
       redirect_to categories_url, success: "Successfully added #{@category.name.inspect} category."
     else
@@ -46,5 +46,9 @@ class CategoriesController < ApplicationController
 
   def category_params
     params.require(:category).permit(:name)
+  end
+
+  def user_owns_category?
+    @category.user == current_user
   end
 end
