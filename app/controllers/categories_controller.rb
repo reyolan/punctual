@@ -1,13 +1,20 @@
 class CategoriesController < ApplicationController
+  include TasksHelper
+  
   before_action :authenticate_user!
-  before_action :set_category, only: %i[destroy show edit update]
+  before_action :set_category, only: %i[destroy edit show update]
 
   def index
-    @categories = current_user.categories.all.order(name: :asc)
+    @categories = current_user.categories.all
   end
 
   def show
-    # Add task here through Active Record Association
+    if user_owns_category?
+      @tasks = query_tasks(@category)
+      render :show
+    else
+      redirect_to request.referrer || root_url, danger: "You cannot access another user's category"
+    end
   end
 
   def new
@@ -49,6 +56,6 @@ class CategoriesController < ApplicationController
   end
 
   def user_owns_category?
-    @category.user == current_user
+    current_user == @category.user
   end
 end

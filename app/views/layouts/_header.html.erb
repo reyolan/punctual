@@ -8,11 +8,12 @@
   <ul id="list" class="hidden gap-0 flex flex-col absolute top-0 rounded right-0 mt-16 px-4 py-2 text-right sm:mr-0 sm:text-left sm:mt-0 sm:flex-row sm:gap-4 sm:flex sm:static">
     <li><%= link_to "Home", root_path, class: "text-lg text-slate-200 hover:text-slate-400 font-medium" %></li>
     <% if user_signed_in? %>
-      <li><%= link_to "Categories", categories_path, class: "text-lg text-slate-200 hover:text-slate-400 font-medium" %>
-        <li><%= link_to "Log out", destroy_user_session_path, method: :delete, class: "text-lg text-slate-200 hover:text-slate-400 font-medium" %></li>
-      <% else %>
-        <li><%= link_to "Log in", new_user_session_path, class: "text-lg text-slate-200 hover:text-slate-400 font-medium" %></li>
-        <li><%= link_to "Sign up", new_user_registration_path, class: "text-lg text-slate-200 hover:text-slate-400 font-medium" %></li>
-      <% end %>
-    </ul>
-  </nav>
+      <li><%= link_to "Categories", categories_path, class: "text-lg text-slate-200 hover:text-slate-400 font-medium" %></li>
+      <li><%= link_to "Settings", '#', class: "text-lg text-slate-200 hover:text-slate-400 font-medium" %></li>
+      <li><%= link_to "Log out", destroy_user_session_path, class: "text-lg text-slate-200 hover:text-slate-400 font-medium" %></li>
+    <% else %>
+      <li><%= link_to "Log in", new_user_session_path, class: "text-lg text-slate-200 hover:text-slate-400 font-medium" %></li>
+      <li><%= link_to "Sign up", new_user_registration_path, class: "text-lg text-slate-200 hover:text-slate-400 font-medium" %></li>
+    <% end %>
+  </ul>
+</nav>

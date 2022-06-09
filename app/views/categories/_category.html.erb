@@ -1,1 +1,4 @@
-<li><%= link_to category.name, category %></li>
+<li>
+  <%= link_to category.name, category %>
+  <%= link_to "Delete Category", category, method: :delete, data: { confirm: 'Are you sure you want to delete this category?'} %>
+</li>

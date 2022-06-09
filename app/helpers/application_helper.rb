@@ -1,11 +1,7 @@
 module ApplicationHelper
   def full_title(title = '')
     base_title = 'Punctual'
-    if title.empty?
-      base_title
-    else
-      "#{title} | #{base_title}"
-    end
+    title.empty? ? base_title : "#{title} | #{base_title}"
   end
 
   def get_email_username(email)
@@ -14,5 +10,17 @@ module ApplicationHelper
 
   def format_auxiliary_verb(count)
     count == 1 ? 'is' : 'are'
+  end
+
+  def rephrase_deadline(date)
+    if date == Date.today
+      'Today'
+    elsif date == Date.tomorrow
+      'Tomorrow'
+    elsif date.is_a?(Date)
+      date
+    else
+      '---'
+    end
   end
 end
