@@ -1,20 +1,21 @@
 <%= render 'shared/error_msg', object: @task %>
-<%= form_with model: @task, html: {class: 'w-52 m-auto'} do |f|%>
+<%= form_with model: @task, html: {class: 'bg-slate-100 max-w-lg m-auto p-6 rounded-md mt-4'} do |f|%>
+  <h1 class= 'font-bold text-4xl text-center mb-4'><%= yield(:title) %></h1>
   <div class="flex flex-col">
     <%= f.label :category_id, class: 'text-2xl'%>
-    <%= f.collection_select :category_id, @categories, :id, :name, {include_blank: 'Select Category'}, {class: 'rounded-md p-2 w-64 text-xl'}%>
+    <%= f.collection_select :category_id, @categories, :id, :name, {include_blank: 'Select Category'}, {class: 'rounded-md w-full text-xl'}%>
   </div>
-  <div class="flex flex-col">
+  <div class="flex flex-col mt-2">
     <%= f.label :name, class: 'text-2xl' %>
-    <%= f.text_field :name, class: 'rounded-md p-2 w-64 text-xl' %>
+    <%= f.text_field :name, class: 'rounded-md w-full text-xl' %>
   </div>
-  <div class="flex flex-col">
+  <div class="flex flex-col mt-2">
     <%= f.label :details, class: 'text-2xl' %>
-    <%= f.text_area :details, class: 'rounded-md p-2 w-64 text-xl resize-none' %>
+    <%= f.text_area :details, class: 'rounded-md w-full text-xl' %>
   </div>
-  <div class="flex flex-col">
+  <div class="flex flex-col mt-2">
     <%= f.label :deadline, class: 'text-2xl' %>
-    <%= f.date_field :deadline, class: 'rounded-md p-2 w-64 text-xl' %>
+    <%= f.date_field :deadline, class: 'rounded-md w-full text-xl' %>
   </div>
-  <%= f.submit yield(:form_button_text), class: 'bg-slate-400 p-2 rounded-md cursor-pointer font-medium text-lg hover:bg-slate-500' %>
+  <%= f.submit yield(:form_button_text), class: 'mt-4 bg-slate-400 p-2 rounded-md cursor-pointer font-medium text-lg hover:bg-slate-300 w-full' %>
 <% end %>

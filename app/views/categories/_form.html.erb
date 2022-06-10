@@ -1,8 +1,9 @@
 <%= render 'shared/error_msg', object: @category %>
-<%= form_with model: @category, html: {class: 'flex flex-col items-center gap-4'} do |f| %>
+<%= form_with model: @category, html: {class: 'bg-slate-100 max-w-md m-auto p-6 rounded-md mt-4'} do |f| %>
   <div class= 'flex flex-col gap-1'>
-    <%= f.label :name, class: 'text-2xl' %>
-    <%= f.text_field :name, class: 'rounded-md p-2 w-64 text-xl' %>
+    <h1 class='text-4xl text-center font-bold'><%= yield(:title) %></h1>
+    <%= f.label :name, class: 'text-2xl mt-2' %>
+    <%= f.text_field :name, class: 'rounded-md w-full' %>
   </div>
-  <%= f.submit yield(:form_button_text), class: 'bg-slate-400 p-2 rounded-md cursor-pointer font-medium text-lg hover:bg-slate-500' %>
+  <%= f.submit yield(:form_button_text), class: 'mt-4 bg-slate-400 p-2 rounded-md cursor-pointer font-medium text-lg hover:bg-slate-300 w-full' %>
 <% end %>
