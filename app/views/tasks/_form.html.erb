@@ -1,7 +1,7 @@
 <%= render 'shared/error_msg', object: @task %>
 <%= form_with model: @task, html: {class: 'w-52 m-auto'} do |f|%>
   <div class="flex flex-col">
-    <%= f.label :categories, class: 'text-2xl'%>
+    <%= f.label :category_id, class: 'text-2xl'%>
     <%= f.collection_select :category_id, @categories, :id, :name, {include_blank: 'Select Category'}, {class: 'rounded-md p-2 w-64 text-xl'}%>
   </div>
   <div class="flex flex-col">

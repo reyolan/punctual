@@ -1,0 +1,44 @@
+<div class="max-w-7xl m-auto">
+  <h2 class="font-bold text-3xl">Todo</h2>
+  <div class='bg-slate-300 p-2 max-h-64 rounded overflow-y-auto'>
+    <% if @tasks[:not_completed].count > 0 %>
+      <ul class="flex flex-col gap-2">
+        <% @tasks[:not_completed].each do |task|%>
+          <li class="flex justify-between items-center w-full bg-slate-400 rounded p-2 m-auto hover:bg-slate-200">
+            <%= form_with model: task do |f| %>
+              <%= f.check_box :completed, onchange: "this.form.submit()"; %>
+            <% end %>
+            <div class="text-center">
+              <p class="text-lg font-semibold"><%= task.name %></p>
+              <p class="text-lg font-medium"><i class="las la-calendar-alt mr-1"></i><%= rephrase_deadline(task.deadline) %></p>
+            </div>
+            <i class="las la-trash-alt cursor-pointer"></i>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="text-center font-semibold text-xl">No Tasks available</p>
+    <% end %>
+  </div>
+  <h2 class="font-bold text-3xl mt-2">Completed</h2>
+  <div class='bg-slate-300 p-2 max-h-64 rounded overflow-hidden'>
+    <% if @tasks[:completed].count > 0 %>
+      <ul class="flex flex-col gap-2">
+        <% @tasks[:completed].each do |task|%>
+          <li class="flex justify-between items-center w-full bg-slate-400 rounded p-2 m-auto hover:bg-slate-200">
+            <%= form_with model: task do |f| %>
+              <%= f.check_box :completed, onchange: "this.form.submit()"; %>
+            <% end %>
+            <div class="text-center">
+              <p class="text-lg font-semibold" data-task-name><%= task.name %></p>
+              <p class="text-lg font-medium"><i class="las la-calendar-alt mr-1"></i><%= rephrase_deadline(task.deadline) %></p>
+            </div>
+            <i class="las la-trash-alt cursor-pointer"></i>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="text-center font-semibold text-xl">No Completed Tasks</p>
+    <% end %>
+  </div>
+</div>

@@ -1,25 +1,3 @@
 <h1 class="font-bold text-2xl"><%= @category.name %></h1>
 <%= link_to "Rename Category", edit_category_path, class: 'bg-slate-400 p-2 rounded-md cursor-pointer font-medium text-lg hover:bg-slate-500' %>
-<h2 class="font-bold text-xl text-center">Todo</h2>
-<% if @tasks[:not_completed].count > 0 %>
-  <ul class="m-auto">
-    <% @tasks[:not_completed].each do |task|%>
-      <li class="flex justify-between items-center w-52 bg-slate-400 mt-2 rounded p-2 m-auto">
-        <%= check_box_tag task.completed %>
-        <div class="text-center">
-          <p class="text-lg"><%= task.name %></p>
-          <p class="text-lg"><i class="las la-calendar-alt"></i><%= rephrase_deadline(task.deadline) %></p>
-        </div>
-        <i class="las la-trash-alt"></i>
-      </li>
-    <% end %>
-  </ul>
-<% end %>
-<h2 class="font-bold text-xl text-center mt-2">Completed</h2>
-<% if @tasks[:completed].count > 0 %>
-  <ul>
-    <%= @tasks[:completed].each do |task|%>
-      <li><%= task.name %></li>
-    <% end %>
-  </ul>
-<% end %>
+<%= render 'shared/task_list' %>

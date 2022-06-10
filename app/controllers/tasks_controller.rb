@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   before_action :authenticate_user!
   before_action :set_task, only: %i[edit update destroy]
-  before_action :set_task_collection, only: %i[new edit]
+  before_action :set_task_collection, only: %i[new edit create update]
 
   def new
     @task = Task.new

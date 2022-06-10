@@ -1,6 +1,6 @@
 class CategoriesController < ApplicationController
   include TasksHelper
-  
+
   before_action :authenticate_user!
   before_action :set_category, only: %i[destroy edit show update]
 
@@ -11,7 +11,6 @@ class CategoriesController < ApplicationController
   def show
     if user_owns_category?
       @tasks = query_tasks(@category)
-      render :show
     else
       redirect_to request.referrer || root_url, danger: "You cannot access another user's category"
     end
