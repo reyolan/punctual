@@ -9,6 +9,10 @@
     <%= f.text_field :name, class: 'rounded-md p-2 w-64 text-xl' %>
   </div>
   <div class="flex flex-col">
+    <%= f.label :details, class: 'text-2xl' %>
+    <%= f.text_area :details, class: 'rounded-md p-2 w-64 text-xl resize-none' %>
+  </div>
+  <div class="flex flex-col">
     <%= f.label :deadline, class: 'text-2xl' %>
     <%= f.date_field :deadline, class: 'rounded-md p-2 w-64 text-xl' %>
   </div>

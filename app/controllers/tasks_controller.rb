@@ -1,22 +1,18 @@
 class TasksController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_task, only: %i[edit update destroy]
+  before_action :set_task, :user_owns_task?, only: %i[show edit update destroy]
   before_action :set_task_collection, only: %i[new edit create update]
 
   def new
     @task = Task.new
   end
 
-  def show
-    if user_owns_task?
-      @tasks = query_tasks(current_user)
-    else
-      redirect_to request.referrer || root_url, danger: "You cannot access another user's task"
-    end
-  end
+  def show; end
 
   def create
     @task = current_user.tasks.build(task_params)
+    # Take note of this
+    @task.user_id = current_user.id
     if @task.save
       redirect_to root_url, success: 'Successfully added task.'
     else
@@ -50,10 +46,12 @@ class TasksController < ApplicationController
   end
 
   def set_task_collection
-    @categories = current_user.categories.order(:name)
+    @categories = current_user.categories
   end
 
   def user_owns_task?
-    current_user == @task.user
+    return if current_user == @task.user
+
+    redirect_to request.referrer || root_url, danger: "You cannot access/modify another user's task"
   end
 end
