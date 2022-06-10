@@ -1,7 +1,12 @@
 class TasksController < ApplicationController
+  include TasksHelper
   before_action :authenticate_user!
   before_action :set_task, :user_owns_task?, only: %i[show edit update destroy]
   before_action :set_task_collection, only: %i[new edit create update]
+
+  def index
+    @tasks = query_tasks(current_user)
+  end
 
   def new
     @task = Task.new

@@ -1,9 +1,9 @@
-<li class="bg-slate-400 p-3 mt-3 w-fit rounded-md">
-  <%= link_to category, class: 'flex flex-col justify-between gap-6' do %>
+<li class="bg-slate-400 p-4 rounded-md w-64 m-auto">
+  <%= link_to category, class: 'flex flex-col justify-between gap-5' do %>
     <h2 class="font-bold text-3xl"><%= category.name %></h1>
-    <div>
-      <p><i class="las la-list mr-1"></i><%= count_not_completed_task(category)%> incomplete <%= "task".pluralize(count_not_completed_task(category)) %></p>
-      <p><i class="las la-check-square mr-1"></i><%= count_completed_task(category)%> completed <%= "task".pluralize(count_completed_task(category)) %></p>
+    <div class="text-left mb-5">
+      <p class="text-lg"><i class="las la-list mr-1"></i><%= count_not_completed_task(category)%> incomplete <%= "task".pluralize(count_not_completed_task(category)) %></p>
+      <p class="text-lg"><i class="las la-check-square mr-1"></i><%= count_completed_task(category)%> completed <%= "task".pluralize(count_completed_task(category)) %></p>
     </div>
     <%= link_to category, method: :delete, data: { confirm: 'Are you sure you want to delete this category?'} do %>
       <div class='bg-slate-500 text-center rounded-lg hover:bg-slate-600'>

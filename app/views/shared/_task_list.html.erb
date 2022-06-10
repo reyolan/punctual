@@ -4,15 +4,17 @@
     <% if @tasks[:today].count > 0 %>
       <ul class="flex flex-col gap-2">
         <% @tasks[:today].each do |task|%>
-          <li class="flex justify-between items-center w-full bg-slate-400 rounded p-2 m-auto hover:bg-slate-200">
-            <%= form_with model: task do |f| %>
-              <%= f.check_box :completed, onchange: "this.form.submit()"; %>
+          <li>
+            <%= link_to task, class: 'flex justify-between items-center w-full bg-slate-400 rounded p-2 m-auto hover:bg-slate-200' do %>
+              <%= form_with model: task do |f| %>
+                <%= f.check_box :completed, onchange: "this.form.submit()"; %>
+              <% end %>
+              <div class="text-center">
+                <p class="text-lg font-semibold"><%= task.name %></p>
+                <p class="text-lg font-medium"><%= task.category.name %> • <span data-deadline><i class="las la-calendar-alt mr-1"></i><%= rephrase_deadline(task.deadline) %></span></p>
+              </div>
+              <i class="las la-trash-alt cursor-pointer"></i>
             <% end %>
-            <div class="text-center">
-              <p class="text-lg font-semibold"><%= task.name %></p>
-              <p class="text-lg font-medium"><%= task.category.name %> • <span data-deadline><i class="las la-calendar-alt mr-1"></i><%= rephrase_deadline(task.deadline) %></span></p>
-            </div>
-            <i class="las la-trash-alt cursor-pointer"></i>
           </li>
         <% end %>
       </ul>
@@ -25,15 +27,17 @@
     <% if @tasks[:not_completed].count > 0 %>
       <ul class="flex flex-col gap-2">
         <% @tasks[:not_completed].each do |task|%>
-          <li class="flex justify-between items-center w-full bg-slate-400 rounded p-2 m-auto hover:bg-slate-200">
-            <%= form_with model: task do |f| %>
-              <%= f.check_box :completed, onchange: "this.form.submit()"; %>
+          <li>
+            <%= link_to task, class: 'flex justify-between items-center w-full bg-slate-400 rounded p-2 m-auto hover:bg-slate-200' do %>
+              <%= form_with model: task do |f| %>
+                <%= f.check_box :completed, onchange: "this.form.submit()"; %>
+              <% end %>
+              <div class="text-center">
+                <p class="text-lg font-semibold"><%= task.name %></p>
+                <p class="text-lg font-medium"><%= task.category.name %> • <span data-deadline><i class="las la-calendar-alt mr-1"></i><%= rephrase_deadline(task.deadline) %></span></p>
+              </div>
+              <i class="las la-trash-alt cursor-pointer"></i>
             <% end %>
-            <div class="text-center">
-              <p class="text-lg font-semibold"><%= task.name %></p>
-              <p class="text-lg font-medium"><%= task.category.name %> • <span data-deadline><i class="las la-calendar-alt mr-1"></i><%= rephrase_deadline(task.deadline) %></span></p>
-            </div>
-            <i class="las la-trash-alt cursor-pointer"></i>
           </li>
         <% end %>
       </ul>
@@ -46,15 +50,17 @@
     <% if @tasks[:completed].count > 0 %>
       <ul class="flex flex-col gap-2">
         <% @tasks[:completed].each do |task|%>
-          <li class="flex justify-between items-center w-full bg-slate-400 rounded p-2 m-auto hover:bg-slate-200">
-            <%= form_with model: task do |f| %>
-              <%= f.check_box :completed, onchange: "this.form.submit()"; %>
+          <li>
+            <%= link_to task, class: 'flex justify-between items-center w-full bg-slate-400 rounded p-2 m-auto hover:bg-slate-200' do %>
+              <%= form_with model: task do |f| %>
+                <%= f.check_box :completed, onchange: "this.form.submit()"; %>
+              <% end %>
+              <div class="text-center">
+                <p class="text-lg font-semibold" data-task-name><%= task.name %></p>
+                <p class="text-lg font-medium"><%= task.category.name %> • <span data-deadline><i class="las la-calendar-alt mr-1"></i><%= rephrase_deadline(task.deadline) %></span></p>
+              </div>
+              <i class="las la-trash-alt cursor-pointer"></i>
             <% end %>
-            <div class="text-center">
-              <p class="text-lg font-semibold" data-task-name><%= task.name %></p>
-              <p class="text-lg font-medium"><%= task.category.name %> • <span data-deadline><i class="las la-calendar-alt mr-1"></i><%= rephrase_deadline(task.deadline) %></span></p>
-            </div>
-            <i class="las la-trash-alt cursor-pointer"></i>
           </li>
         <% end %>
       </ul>
