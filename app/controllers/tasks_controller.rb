@@ -7,6 +7,14 @@ class TasksController < ApplicationController
     @task = Task.new
   end
 
+  def show
+    if user_owns_task?
+      @tasks = query_tasks(current_user)
+    else
+      redirect_to request.referrer || root_url, danger: "You cannot access another user's task"
+    end
+  end
+
   def create
     @task = current_user.tasks.build(task_params)
     if @task.save
@@ -43,5 +51,9 @@ class TasksController < ApplicationController
 
   def set_task_collection
     @categories = current_user.categories.order(:name)
+  end
+
+  def user_owns_task?
+    current_user == @task.user
   end
 end
