@@ -2,6 +2,6 @@
   <h1 class="font-bold text-4xl mb-4">Categories</h1>
   <%= link_to "Add Category", new_category_path, class: 'bg-slate-400 p-2 rounded-md cursor-pointer font-medium text-lg hover:bg-slate-500' %>
 </div>
-<ul class='flex flex-wrap m-auto gap-2 text-center bg-slate-100 rounded-md mt-6 p-4 w-fit'>
+<ul class='grid grid-cols-auto-fill-64 justify-center gap-4 text-center bg-slate-100 rounded-md m-6 p-4'>
   <%= render @categories %>
 </ul>

@@ -1,8 +1,8 @@
 class TasksController < ApplicationController
-  include TasksHelper
   before_action :authenticate_user!
-  before_action :set_task, :user_owns_task?, only: %i[show edit update destroy]
-  before_action :set_task_collection, only: %i[new edit create update]
+  before_action :set_task, only: %i[show edit update destroy]
+  before_action :set_category_collection, only: %i[new create edit update]
+  before_action :set_category, only: %i[new create]
 
   def index
     @tasks = query_tasks(current_user)
@@ -19,7 +19,7 @@ class TasksController < ApplicationController
     # Take note of this
     @task.user_id = current_user.id
     if @task.save
-      redirect_to root_url, success: 'Successfully added task.'
+      redirect_to params[:previous_page], success: "Successfully added #{@task.name.inspect} task."
     else
       render :new
     end
@@ -29,7 +29,7 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to root_url, success: 'Successfully updated task'
+      redirect_to root_url, success: 'Successfully updated task.'
     else
       render :update
     end
@@ -37,7 +37,7 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    redirect_to request.referrer || root_url
+    redirect_back fallback_location: root_url, success: "Successfully deleted #{@task.name.inspect} task."
   end
 
   private
@@ -46,17 +46,17 @@ class TasksController < ApplicationController
     params.require(:task).permit(:name, :deadline, :completed, :category_id)
   end
 
-  def set_task
-    @task = Task.find(params[:id])
+  def set_category
+    return unless params[:category_id]
+
+    @category = current_user.categories.find(params[:category_id])
   end
 
-  def set_task_collection
+  def set_category_collection
     @categories = current_user.categories
   end
 
-  def user_owns_task?
-    return if current_user == @task.user
-
-    redirect_to request.referrer || root_url, danger: "You cannot access/modify another user's task"
+  def set_task
+    @task = current_user.tasks.find(params[:id])
   end
 end

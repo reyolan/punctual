@@ -1,5 +1,4 @@
 class StaticPagesController < ApplicationController
-  include TasksHelper
 
   def home; end
 

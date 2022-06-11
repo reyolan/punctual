@@ -1,7 +1,6 @@
 class CategoriesController < ApplicationController
-  include TasksHelper
   before_action :authenticate_user!
-  before_action :set_category, :user_owns_category?, only: %i[show edit update destroy]
+  before_action :set_category, only: %i[show edit update destroy]
 
   def index
     @categories = current_user.categories.all
@@ -36,22 +35,16 @@ class CategoriesController < ApplicationController
 
   def destroy
     @category.destroy
-    redirect_to categories_url
+    redirect_to categories_url, success: "Successfuly deleted #{@category.name.inspect} category."
   end
 
   private
-
-  def set_category
-    @category = Category.find(params[:id])
-  end
 
   def category_params
     params.require(:category).permit(:name)
   end
 
-  def user_owns_category?
-    return if current_user == @category.user
-
-    redirect_to request.referrer || root_url, danger: "You cannot access/modify another user's category"
+  def set_category
+    @category = current_user.categories.find(params[:id])
   end
 end

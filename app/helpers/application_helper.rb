@@ -13,7 +13,7 @@ module ApplicationHelper
   end
 
   def rephrase_deadline(date)
-    if date == Date.today
+    if date == Date.current
       'Today'
     elsif date == Date.tomorrow
       'Tomorrow'

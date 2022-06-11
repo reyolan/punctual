@@ -5,7 +5,11 @@ module.exports = {
     "./app/views/**/*",
   ],
   theme: {
-    extend: {},
+    extend: {
+      gridTemplateColumns: {
+        "auto-fill-64": "repeat(auto-fit, minmax(0, 280px))",
+      },
+    },
   },
   plugins: [require("@tailwindcss/forms")],
 };

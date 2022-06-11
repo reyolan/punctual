@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :categories
-  resources :tasks, except: :index
+  resources :tasks, only: %i[new create]
+  resources :categories do
+    resources :tasks, shallow: true, except: :index
+  end
 
   authenticated :user do
     root 'tasks#index', as: 'authenticated_root'
