@@ -1,7 +1,6 @@
 <%= render 'shared/error_msg', object: @task %>
 <%= form_with model: @task, html: {class: 'bg-slate-100 max-w-lg m-auto p-6 rounded-md mt-4'} do |f|%>
   <h1 class= 'font-bold text-4xl text-center mb-4'><%= yield(:title) %></h1>
-  <%= hidden_field_tag :previous_page, retain_previous_request_new_category(request.referer) %>
   <div class="flex flex-col">
     <%= f.label :category_id, class: 'text-2xl'%>
     <%= f.collection_select :category_id, @categories, :id, :name, {include_blank: 'Select Category', selected: @category&.id }, {class: 'rounded-md w-full text-xl'}%>

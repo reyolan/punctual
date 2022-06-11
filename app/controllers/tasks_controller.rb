@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   before_action :authenticate_user!
   before_action :set_task, only: %i[show edit update destroy]
   before_action :set_category_collection, only: %i[new create edit update]
-  before_action :set_category, only: %i[new create]
+  before_action :set_category, only: %i[new]
 
   def index
     @tasks = query_tasks(current_user)
@@ -19,7 +19,8 @@ class TasksController < ApplicationController
     # Take note of this
     @task.user_id = current_user.id
     if @task.save
-      redirect_to params[:previous_page], success: "Successfully added #{@task.name.inspect} task."
+      # TODO: Try conditiona redirect
+      redirect_to @task, success: "Successfully added #{@task.name.inspect} task."
     else
       render :new
     end

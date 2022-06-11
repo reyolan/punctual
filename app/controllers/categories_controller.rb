@@ -17,7 +17,7 @@ class CategoriesController < ApplicationController
   def create
     @category = current_user.categories.build(category_params)
     if @category.save
-      redirect_to categories_url, success: "Successfully added #{@category.name.inspect} category."
+      redirect_to @category, success: "Successfully added #{@category.name.inspect} category."
     else
       render :new
     end
