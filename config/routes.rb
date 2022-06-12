@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :users, skip: %i[]
+  devise_for :users
+  devise_scope :user do
+    get '/users', to: 'devise/registrations#new'
+    get '/users/password', to: 'devise/passwords#new'
+  end
   resources :tasks, only: %i[new create]
   resources :categories do
     resources :tasks, shallow: true, except: :index
@@ -11,6 +15,4 @@ Rails.application.routes.draw do
 
   root 'static_pages#home'
   get '/settings', to: 'static_pages#settings', as: 'settings'
-
-  get '/users', to: redirect('/users/sign_up')
 end
