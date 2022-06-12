@@ -1,7 +1,15 @@
 <div class="text-center">
   <h1 class="font-bold text-4xl mb-4">Categories</h1>
-  <%= link_to "Add Category", new_category_path, class: 'bg-slate-400 p-2 rounded-md cursor-pointer font-medium text-lg hover:bg-slate-500' %>
+  <%= link_to new_category_path, class: 'bg-slate-400 p-2 rounded-md cursor-pointer font-medium text-lg hover:bg-slate-500 mr-2' do %>
+    <i class="las la-plus"></i>Add Category 
+  <% end %>
 </div>
-<ul class='grid grid-cols-auto-fill-64 justify-center gap-4 text-center bg-slate-100 rounded-md m-6 p-4'>
-  <%= render @categories %>
-</ul>
+<div class='bg-slate-100 rounded-md m-6 p-4'>
+  <% if @categories.count > 0 %>
+    <ul class='grid grid-cols-auto-fill-64 justify-center gap-4 text-center '>
+      <%= render @categories %>
+    </ul>
+  <% else %>
+    <p class="font-semibold text-center text-2xl">There are no categories to be shown.</p>
+  <% end %>
+</div>
