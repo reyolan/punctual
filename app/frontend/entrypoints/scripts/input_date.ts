@@ -1,11 +1,15 @@
-function disableDateBeforeToday() {
-  const dateInput = document.querySelector(
-    "#task_deadline"
-  ) as HTMLInputElement;
+function disableDateBeforeToday(): void {
+  const dateInput: HTMLInputElement | null =
+    document.querySelector("#task_deadline");
 
   if (!dateInput) return;
 
-  const date = new Date().toISOString().split("T")[0];
+  // ISO Format with timezone offset
+  const date: string = new Date()
+    .toLocaleString("sv", { timeZoneName: "short" })
+    .split(" ")[0];
+  console.log(date);
+
   dateInput.setAttribute("min", date);
 }
 

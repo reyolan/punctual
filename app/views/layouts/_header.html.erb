@@ -3,6 +3,9 @@
     <div class="flex gap-3 items-center ">
       <div class="flex gap-2 items-center"><i class="las la-user-clock"></i>
         <p>Punctual</p>
+        <% if user_signed_in? %>
+          <p class="font-medium">| <%= current_user.email%></p>
+        <%end%>
       </div>
     </div>
   <% end %>
@@ -11,7 +14,7 @@
     <li><%= link_to "Home", root_path, class: "text-lg text-slate-200 hover:text-slate-400 font-medium" %></li>
     <% if user_signed_in? %>
       <li><%= link_to "Categories", categories_path, class: "text-lg text-slate-200 hover:text-slate-400 font-medium" %></li>
-      <li><%= link_to "Settings", '#', class: "text-lg text-slate-200 hover:text-slate-400 font-medium" %></li>
+      <li><%= link_to "Settings", settings_path, class: "text-lg text-slate-200 hover:text-slate-400 font-medium" %></li>
       <li><%= link_to "Log out", destroy_user_session_path, class: "text-lg text-slate-200 hover:text-slate-400 font-medium" %></li>
     <% else %>
       <li><%= link_to "Log in", new_user_session_path, class: "text-lg text-slate-200 hover:text-slate-400 font-medium" %></li>

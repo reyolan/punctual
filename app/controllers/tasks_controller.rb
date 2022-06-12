@@ -1,5 +1,4 @@
 class TasksController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_task, only: %i[show edit update destroy]
   before_action :set_category_collection, only: %i[new create edit update]
   before_action :set_category, only: %i[new]
@@ -16,10 +15,8 @@ class TasksController < ApplicationController
 
   def create
     @task = current_user.tasks.build(task_params)
-    # Take note of this
-    @task.user_id = current_user.id
     if @task.save
-      # TODO: Try conditiona redirect
+      # TODO: Try conditional redirect
       redirect_to @task, success: "Successfully added #{@task.name.inspect} task."
     else
       render :new
@@ -32,19 +29,20 @@ class TasksController < ApplicationController
     if @task.update(task_params)
       redirect_to root_url, success: 'Successfully updated task.'
     else
-      render :update
+      render :edit
     end
   end
 
   def destroy
     @task.destroy
-    redirect_back fallback_location: root_url, success: "Successfully deleted #{@task.name.inspect} task."
+    # TODO: Change redirection
+    redirect_to root_url, success: "Successfully deleted #{@task.name.inspect} task."
   end
 
   private
 
   def task_params
-    params.require(:task).permit(:name, :deadline, :completed, :category_id)
+    params.require(:task).permit(:name, :deadline, :details, :completed, :category_id)
   end
 
   def set_category

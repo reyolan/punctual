@@ -4,8 +4,10 @@
     <%= link_to new_category_path, class: 'bg-slate-400 p-2 rounded-md cursor-pointer font-medium text-lg hover:bg-slate-500 mr-2' do %>
       <i class="las la-plus"></i>Add Category 
     <% end %>
-    <%= link_to new_task_path, class: 'bg-slate-400 p-2 rounded-md cursor-pointer font-medium text-lg hover:bg-slate-500' do %>
-      <i class="las la-plus"></i>Add Task
+    <% if current_user.categories.count > 0 %>
+      <%= link_to new_task_path, class: 'bg-slate-400 p-2 rounded-md cursor-pointer font-medium text-lg hover:bg-slate-500' do %>
+        <i class="las la-plus"></i>Add Task
+      <% end %>
     <% end %>
   </div>
 </div>

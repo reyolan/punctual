@@ -23,4 +23,8 @@ module ApplicationHelper
       '---'
     end
   end
+
+  def turn_to_red(date, completed)
+    'bg-red-400' if date < Date.current && !completed
+  end
 end
