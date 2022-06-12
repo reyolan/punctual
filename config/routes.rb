@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, skip: %i[]
   resources :tasks, only: %i[new create]
   resources :categories do
     resources :tasks, shallow: true, except: :index
