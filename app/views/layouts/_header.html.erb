@@ -10,7 +10,7 @@
     </div>
   <% end %>
   <span id="hamburger" class="sm:hidden text-white text-lg font-bold">&#9776;</span>
-  <ul id="list" class="gap-0 bg-slate-700 flex flex-col absolute top-0 right-0 mt-16 px-4 py-2 text-right sm:mr-0 sm:text-left sm:mt-0 sm:flex-row sm:gap-4 sm:flex sm:static">
+  <ul id="list" class="hidden gap-0 bg-slate-700 flex flex-col absolute top-0 right-0 mt-16 px-4 py-2 text-right sm:mr-0 sm:text-left sm:mt-0 sm:flex-row sm:gap-4 sm:flex sm:static">
     <li><%= link_to "Home", root_path, class: "text-xl sm:text-lg text-slate-200 hover:text-slate-400 font-medium" %></li>
     <% if user_signed_in? %>
       <li><%= link_to "Categories", categories_path, class: "text-xl sm:text-lg text-slate-200 hover:text-slate-400 font-medium" %></li>
