@@ -10,8 +10,8 @@ class CategoryTest < ActiveSupport::TestCase
     assert @category.valid?
   end
 
-  test 'user id should be present' do
-    @category.user_id = nil
+  test 'user should be present' do
+    @category.user = nil
     assert_not @category.valid?
   end
 

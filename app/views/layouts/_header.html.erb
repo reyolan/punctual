@@ -2,9 +2,9 @@
   <%= link_to root_path, class: "text-white text-xl sm:text-2xl font-bold sm:w-auto w-fit" do %>
     <div class="flex gap-3 items-center ">
       <div class="flex gap-2 items-center"><i class="las la-user-clock"></i>
-        <p class="hidden sm:inline">Punctual</p>
+        <p class="hidden lg:inline-block">Punctual</p>
         <% if user_signed_in? %>
-          <p class="text-sm sm:text-xl sm:font-medium">| <%= current_user.email %></p>
+          <p class="text-sm md:text-md lg:text-xl sm:font-medium">| <%= current_user.email %></p>
         <%end%>
       </div>
     </div>

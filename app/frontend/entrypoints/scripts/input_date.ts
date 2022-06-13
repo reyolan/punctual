@@ -8,7 +8,6 @@ function disableDateBeforeToday(): void {
   const date: string = new Date()
     .toLocaleString("sv", { timeZoneName: "short" })
     .split(" ")[0];
-  console.log(date);
 
   dateInput.setAttribute("min", date);
 }
