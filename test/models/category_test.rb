@@ -1,7 +1,31 @@
 require "test_helper"
 
 class CategoryTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  def setup
+    @user = users(:mike)
+    @category = @user.categories.build(name: 'School')
+  end
+
+  test 'should be valid' do
+    assert @category.valid?
+  end
+
+  test 'user id should be present' do
+    @category.user_id = nil
+    assert_not @category.valid?
+  end
+
+  test 'name should be present' do
+    @category.name = nil
+    assert_not @category.valid?
+  end
+
+  test 'name should not be too long' do
+    @category.name = 'a' * 25
+    assert_not @category.valid?
+  end
+
+  test 'order should be ascending' do
+    assert_equal categories(:first_ascending), Category.first
+  end
 end
