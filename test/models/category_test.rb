@@ -25,7 +25,7 @@ class CategoryTest < ActiveSupport::TestCase
     assert_not @category.valid?
   end
 
-  test 'order should be ascending' do
-    assert_equal categories(:first_ascending), Category.first
+  test 'asc_name scoping should be ascending' do
+    assert_equal categories(:first_ascending), Category.all.asc_name.first
   end
 end

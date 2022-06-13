@@ -5,6 +5,7 @@
 # below each fixture, per the syntax in the comments below
 #
 mike:
+  id: 1
   email: mike@example.com
   encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
   confirmed_at: <%= 2.hours.ago %>

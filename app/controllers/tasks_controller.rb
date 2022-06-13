@@ -52,7 +52,7 @@ class TasksController < ApplicationController
   end
 
   def set_category_collection
-    @categories = current_user.categories
+    @categories = current_user.categories.asc_name
   end
 
   def set_task
