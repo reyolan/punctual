@@ -9,7 +9,7 @@
       <i class="las la-trash-alt"></i>Delete
     <% end %>
   </div>
-  <p class='w-full text-center <%= @task.completed ? 'bg-green-400' : 'bg-yellow-400' %> rounded-md p-4 text-2xl font-bold'><%= show_task_state(@task.completed) %></p>
+  <p class='w-full text-center <%= @task.completed ? 'bg-green-400' : 'bg-yellow-400' %> rounded-md p-4 text-2xl font-bold'><%= show_task_state(@task) %></p>
   <div class='w-full'>
     <h2 class='font-bold text-3xl text-center'>Details</h2>
     <p class="bg-slate-300 p-4 rounded-md text-xl font-medium whitespace-pre-wrap <%= 'text-center' if @task.details.blank? %>"><%= show_task_details(@task.details) %></p>

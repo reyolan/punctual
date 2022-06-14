@@ -59,7 +59,7 @@ class TaskFlowTest < ActionDispatch::IntegrationTest
     assert_select 'h1', @task.name
     assert_select 'p', show_task_details(@task.details)
     assert_select 'p', rephrase_deadline(@task.deadline)
-    assert_select 'p', show_task_state(@task.completed)
+    assert_select 'p', show_task_state(@task)
   end
 
   test 'can delete a task' do

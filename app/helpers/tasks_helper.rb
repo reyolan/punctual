@@ -3,7 +3,7 @@ module TasksHelper
     task_detail.blank? ? 'No details provided.' : task_detail
   end
 
-  def show_task_state(task_completed)
-    task_completed ? 'Completed' : 'Not Completed'
+  def show_task_state(task)
+    task.completed? ? 'Completed' : 'Not Completed'
   end
 end
