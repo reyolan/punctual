@@ -1,5 +1,5 @@
-<div class="max-w-7xl m-auto">
-  <h2 class="font-bold text-3xl mb-1">Today</h2>
+<div class="max-w-7xl m-auto" id="task-list">
+  <h2 class="font-bold text-3xl mb-1">Today (<%= Date.current %>)</h2>
   <div class='bg-slate-100 p-3 max-h-64 rounded overflow-y-auto'>
     <% if @tasks[:today].count > 0 %>
       <ul class="flex flex-col gap-2">
@@ -29,7 +29,7 @@
     <% if @tasks[:not_completed].count > 0 %>
       <ul class="flex flex-col gap-2">
         <% @tasks[:not_completed].each do |task|%>
-          <li class='flex justify-between items-center w-full bg-slate-300 <%= turn_to_red(task.deadline, task.completed) %> rounded p-2 m-auto hover:bg-slate-400'>
+          <li class='flex justify-between items-center w-full <%= turn_to_red(task.deadline, task.completed) %> rounded p-2 m-auto hover:bg-slate-400'>
             <%= form_with model: task do |f| %>
               <%= f.check_box :completed, onchange: "this.form.submit()"; %>
             <% end %>

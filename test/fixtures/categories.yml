@@ -11,3 +11,7 @@ first_ascending:
 category_two:
   name: Bar
   user: mike
+
+coding:
+  name: Coding
+  user: mike

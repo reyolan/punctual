@@ -21,7 +21,6 @@ class CategoryFlowTest < ActionDispatch::IntegrationTest
   end
 
   test 'cannot create a category with invalid information' do
-    get new_user_session_path
     sign_in(@user)
     get new_category_path
     assert_no_difference 'Category.count' do
@@ -31,7 +30,6 @@ class CategoryFlowTest < ActionDispatch::IntegrationTest
   end
 
   test 'can edit a category' do
-    get new_user_session_path
     sign_in(@user)
     get category_path(@first_category)
     name = 'Example123'
@@ -43,10 +41,22 @@ class CategoryFlowTest < ActionDispatch::IntegrationTest
   end
 
   test 'cannot edit a category with invalid information' do
-    get new_user_session_path
     sign_in(@user)
     get category_path(@first_category)
     patch category_path(@first_category), params: { category: { name: 'a' * 25 } }
     assert_select 'div#error_explanation'
+  end
+
+  test 'can see all the categories of the user' do
+    sign_in(@user)
+    get categories_path
+    assert_select 'h1', 'Categories'
+  end
+
+  test 'can view a specific category to show its details' do
+    sign_in(@user)
+    get category_path(@first_category)
+    assert_select 'h1', @first_category.name
+    assert_select 'div#task-list'
   end
 end

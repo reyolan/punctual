@@ -5,9 +5,15 @@ function disableDateBeforeToday(): void {
   if (!dateInput) return;
 
   // ISO Format with timezone offset
-  const date: string = new Date()
-    .toLocaleString("sv", { timeZoneName: "short" })
-    .split(" ")[0];
+  let date: string;
+
+  if (dateInput.value) {
+    date = dateInput.value;
+  } else {
+    date = new Date()
+      .toLocaleString("sv", { timeZoneName: "short" })
+      .split(" ")[0];
+  }
 
   dateInput.setAttribute("min", date);
 }

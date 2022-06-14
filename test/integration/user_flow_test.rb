@@ -8,10 +8,9 @@ class UserFlowTest < ActionDispatch::IntegrationTest
 
   test 'valid signup information' do
     get new_user_registration_path
-    assert_difference 'User.count', 1 do
+    assert_difference ['User.count', 'ActionMailer::Base.deliveries.size'], 1 do
       post user_registration_path, params: { user: { email: 'example@example.com', password: 'example123', password_confirmation: 'example123' } }
     end
-    assert_equal 1, ActionMailer::Base.deliveries.size
     assert_not flash.empty?
     assert_redirected_to root_url
     follow_redirect!

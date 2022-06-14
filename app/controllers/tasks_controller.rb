@@ -16,7 +16,6 @@ class TasksController < ApplicationController
   def create
     @task = current_user.tasks.build(task_params)
     if @task.save
-      # TODO: Try conditional redirect
       redirect_to @task, success: "Successfully added #{@task.name.inspect} task."
     else
       render :new
@@ -27,7 +26,11 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to root_url, success: 'Successfully updated task.'
+      if request.referer == root_url
+        redirect_to root_url
+      else
+        redirect_to @task, success: 'Successfully updated task.'
+      end
     else
       render :edit
     end
@@ -35,7 +38,6 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    # TODO: Change redirection
     redirect_to root_url, success: "Successfully deleted #{@task.name.inspect} task."
   end
 
