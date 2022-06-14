@@ -26,12 +26,29 @@ class TaskFlowTest < ActionDispatch::IntegrationTest
 
   test 'can edit a task' do
     sign_in(@user)
-    get @task
+    get task_path(@task)
     assert_select 'a[href=?]', edit_task_path(@task)
     get edit_task_path(@task)
-    post tasks_path, params: { task: { details: 'Lorem ipsumss' } }
+    name = 'Lorem ipsumsss'
+    patch task_path(@task), params: { task: { name: } }
     assert_not flash.empty?
     assert_equal 'Successfully updated task.', flash[:success]
     assert_redirected_to @task
+    follow_redirect!
+    assert_response :success
+    assert_select 'h1', name
+  end
+
+  test 'can view a task' do
+    sign_in(@user)
+    get task_path(@task)
+    assert_select 'h1', @task.name
+    assert_select 'p', show_task_details(@task.details)
+    assert_select 'p', rephrase_deadline(@task.deadline)
+    assert_select 'p', show_task_state(@task.completed)
+  end
+
+  test 'can delete a task' do
+    sign_in(@user)
   end
 end

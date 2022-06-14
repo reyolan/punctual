@@ -32,9 +32,12 @@ class CategoryFlowTest < ActionDispatch::IntegrationTest
   test 'can edit a category' do
     sign_in(@user)
     get category_path(@first_category)
+    assert_select 'h1', @first_category.name
     name = 'Example123'
     patch category_path(@first_category), params: { category: { name: } }
     assert_not flash.empty?
+    assert_equal "Successfully updated #{name.inspect} category.", flash[:success]
+    assert_redirected_to @first_category
     follow_redirect!
     assert_response :success
     assert_select 'h1', name

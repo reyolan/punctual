@@ -17,6 +17,7 @@ end
 
 class ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
+  include TasksHelper
 
   def user_logged_in?
     request.env['warden'].authenticated?(:user)

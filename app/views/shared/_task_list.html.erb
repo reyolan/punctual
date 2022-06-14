@@ -50,7 +50,7 @@
     <% end %>
   </div>
   <h2 class="font-bold text-3xl mt-2 mb-1">Completed</h2>
-  <div class='bg-slate-100 p-3 max-h-64 rounded'>
+  <div class='bg-slate-100 p-3 max-h-64 rounded overflow-y-auto'>
     <% if @tasks[:completed].count > 0 %>
       <ul class="flex flex-col gap-2">
         <% @tasks[:completed].each do |task|%>

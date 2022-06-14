@@ -26,7 +26,7 @@ class CategoriesController < ApplicationController
 
   def update
     if @category.update(category_params)
-      redirect_to categories_url, success: "Successfuly updated #{@category.name.inspect} category."
+      redirect_to @category, success: "Successfully updated #{@category.name.inspect} category."
     else
       render :edit
     end
