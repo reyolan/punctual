@@ -26,7 +26,11 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      request.referer == root_url ? redirect_to(root_url) : redirect_to(@task, success: 'Successfully updated task.')
+      if request.referer == root_url || request.referer == category_url(@task.category)
+        redirect_to(request.referer)
+      else
+        redirect_to(@task, success: 'Successfully updated task.')
+      end
     else
       render :edit
     end
