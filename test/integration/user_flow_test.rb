@@ -29,11 +29,21 @@ class UserFlowTest < ActionDispatch::IntegrationTest
   test 'login with valid email and password' do
     get new_user_session_path
     assert_select 'h2', 'Login'
+    assert_select 'a[href=?]', categories_path, count: 0
+    assert_select 'a[href=?]', edit_user_registration_path, count: 0
+    assert_select 'a[href=?]', destroy_user_session_path, count: 0
+    assert_select 'a[href=?]', new_user_session_path
+    assert_select 'a[href=?]', new_user_registration_path
     sign_in(@user)
     post user_session_path
     assert user_logged_in?
     assert_redirected_to authenticated_root_url
     follow_redirect!
+    assert_select 'a[href=?]', categories_path
+    assert_select 'a[href=?]', edit_user_registration_path
+    assert_select 'a[href=?]', destroy_user_session_path
+    assert_select 'a[href=?]', new_user_session_path, count: 0
+    assert_select 'a[href=?]', new_user_registration_path, count: 0
     assert_response :success
     assert_not flash.empty?
     assert_select 'h1', "Welcome, #{get_email_username(@user.email)}!"

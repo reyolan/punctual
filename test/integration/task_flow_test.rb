@@ -50,5 +50,20 @@ class TaskFlowTest < ActionDispatch::IntegrationTest
 
   test 'can delete a task' do
     sign_in(@user)
+    get task_path(@task)
+    assert_select 'a[href=?]', task_path(@task)
+    assert_difference 'Task.count', -1 do
+      delete task_path(@task)
+    end
+    assert_redirected_to root_url
+    assert_not flash.empty?
+  end
+
+  test 'can view tasks for today' do
+    sign_in(@user)
+    get root_path
+    assert_select 'h2', "Today (#{Date.current})"
+    assert_select 'p', @task.name
+    assert_select '[data-deadline]', 'Today'
   end
 end
