@@ -40,7 +40,7 @@ class TasksController < ApplicationController
 
   def destroy_completed
     @category ? @category.tasks.completed.destroy_all : current_user.tasks.completed.destroy_all
-    redirect_to request.referer, success: "Successfully deleted all completed tasks#{' in this category' if @category}."
+    redirect_back(fallback_location: root_url, success: "Successfully deleted all completed tasks#{' in this category' if @category}.")
   end
 
   private

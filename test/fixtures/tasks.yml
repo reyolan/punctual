@@ -17,6 +17,13 @@ completed_task:
   deadline: <%= Date.current %>
   category: category_one
 
+another_completed_task:
+  name: "Learn somethingxcxz"
+  completed: true
+  details: nil
+  deadline: <%= Date.current %>
+  category: category_one
+
 not_completed_task:
   name: "Learn something12"
   details: nil
