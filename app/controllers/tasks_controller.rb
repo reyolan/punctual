@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
   before_action :set_category_collection, only: %i[new create edit update]
-  before_action :set_category, only: %i[new]
+  before_action :set_category, only: %i[new destroy_completed]
 
   def index
     @tasks = query_tasks(current_user)
@@ -36,6 +36,11 @@ class TasksController < ApplicationController
     @task.destroy
     flash[:success] = "Successfully deleted #{@task.name.inspect} task."
     request.referer == root_url ? redirect_to(root_url) : redirect_to(@task.category)
+  end
+
+  def destroy_completed
+    @category ? @category.tasks.completed.destroy_all : current_user.tasks.completed.destroy_all
+    redirect_to request.referer, success: "Successfully deleted all completed tasks#{' in this category' if @category}."
   end
 
   private

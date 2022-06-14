@@ -66,4 +66,9 @@ class TaskFlowTest < ActionDispatch::IntegrationTest
     assert_select 'p', @task.name
     assert_select '[data-deadline]', 'Today'
   end
+
+  test 'can delete all completed tasks' do
+    sign_in(@user)
+    get root_path
+  end
 end

@@ -29,4 +29,8 @@ module ApplicationHelper
 
     date < Date.current && !completed ? 'bg-red-400' : 'bg-slate-300'
   end
+
+  def conditional_destroy_completed_path(category)
+    category ? category_tasks_destroy_completed_path(category) : tasks_destroy_completed_path
+  end
 end

@@ -11,11 +11,11 @@
   </div>
   <p class='w-full text-center <%= @task.completed ? 'bg-green-400' : 'bg-yellow-400' %> rounded-md p-4 text-2xl font-bold'><%= show_task_state(@task.completed) %></p>
   <div class='w-full'>
-    <h2 class='font-bold text-2xl text-center'>Details</h2>
+    <h2 class='font-bold text-3xl text-center'>Details</h2>
     <p class="bg-slate-300 p-4 rounded-md text-xl font-medium whitespace-pre-wrap <%= 'text-center' if @task.details.blank? %>"><%= show_task_details(@task.details) %></p>
   </div>
   <div class='w-full'>
-    <h2 class='font-bold text-2xl text-center'>Deadline</h2>
-    <p class="p-4 rounded-md text-xl font-medium text-center <%= turn_to_red(@task.deadline, @task.completed) %>"><%= rephrase_deadline(@task.deadline)%></p>
+    <h2 class='font-bold text-3xl text-center'>Deadline</h2>
+    <p class="p-4 rounded-md text-2xl font-medium text-center <%= turn_to_red(@task.deadline, @task.completed) %>"><%= rephrase_deadline(@task.deadline)%></p>
   </div>
 </div>
