@@ -55,7 +55,7 @@ class TaskFlowTest < ActionDispatch::IntegrationTest
     assert_difference 'Task.count', -1 do
       delete task_path(@task)
     end
-    assert_redirected_to root_url
+    assert_redirected_to @task.category
     assert_not flash.empty?
   end
 

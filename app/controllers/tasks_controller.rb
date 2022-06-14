@@ -26,11 +26,7 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      if request.referer == root_url
-        redirect_to root_url
-      else
-        redirect_to @task, success: 'Successfully updated task.'
-      end
+      request.referer == root_url ? redirect_to(root_url) : redirect_to(@task, success: 'Successfully updated task.')
     else
       render :edit
     end
@@ -38,7 +34,8 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    redirect_to root_url, success: "Successfully deleted #{@task.name.inspect} task."
+    flash[:success] = "Successfully deleted #{@task.name.inspect} task."
+    request.referer == root_url ? redirect_to(root_url) : redirect_to(@task.category)
   end
 
   private
