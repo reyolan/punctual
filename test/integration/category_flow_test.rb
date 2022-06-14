@@ -10,6 +10,8 @@ class CategoryFlowTest < ActionDispatch::IntegrationTest
     get new_user_session_path
     sign_in(@user)
     get new_category_path
+    assert_select 'label'
+    assert_select 'h1', 'Add Category'
     name = 'Example'
     assert_difference 'Category.count', 1 do
       post categories_path, params: { category: { name: } }
@@ -23,9 +25,14 @@ class CategoryFlowTest < ActionDispatch::IntegrationTest
   test 'cannot create a category with invalid information' do
     sign_in(@user)
     get new_category_path
+    assert_select 'label'
+    assert_select 'h1', 'Add Category'
     assert_no_difference 'Category.count' do
       post categories_path, params: { category: { name: 'a' * 25 } }
     end
+    assert_response :success
+    assert_select 'label'
+    assert_select 'h1', 'Add Category'
     assert_select 'div#error_explanation'
   end
 
@@ -54,6 +61,9 @@ class CategoryFlowTest < ActionDispatch::IntegrationTest
     sign_in(@user)
     get categories_path
     assert_select 'h1', 'Categories'
+    @user.categories.each do |category|
+      assert_select 'h1', category.name
+    end
   end
 
   test 'can view a specific category to show its details' do

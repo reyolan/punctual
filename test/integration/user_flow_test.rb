@@ -6,7 +6,7 @@ class UserFlowTest < ActionDispatch::IntegrationTest
     ActionMailer::Base.deliveries.clear
   end
 
-  test 'valid signup information' do
+  test 'can signup with valid information' do
     get new_user_registration_path
     assert_difference ['User.count', 'ActionMailer::Base.deliveries.size'], 1 do
       post user_registration_path, params: { user: { email: 'example@example.com', password: 'example123', password_confirmation: 'example123' } }
@@ -17,16 +17,17 @@ class UserFlowTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test 'invalid signup information' do
+  test 'cannot signup with invalid information' do
     get new_user_registration_path
     assert_no_difference 'User.count' do
       post user_registration_path, params: { user: { email: 'example@not_valid', password: 'exa',
                                                      password_confirmation: 'exa' } }
     end
+    assert_response :success
     assert_select 'div#error_explanation'
   end
 
-  test 'login with valid email and password' do
+  test 'can login with valid email and password' do
     get new_user_session_path
     assert_select 'h2', 'Login'
     assert_select 'a[href=?]', categories_path, count: 0
@@ -49,7 +50,7 @@ class UserFlowTest < ActionDispatch::IntegrationTest
     assert_select 'h1', "Welcome, #{get_email_username(@user.email)}!"
   end
 
-  test 'login with invalid information' do
+  test 'cannot login with invalid email and password' do
     get new_user_session_path
     assert_select 'h2', 'Login'
     post user_session_path, params: { session: { email: ' ', password: ' ' } }

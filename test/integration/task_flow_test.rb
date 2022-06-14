@@ -24,6 +24,20 @@ class TaskFlowTest < ActionDispatch::IntegrationTest
     assert_equal "Successfully added #{name.inspect} task.", flash[:success]
   end
 
+  test 'cannot create a task for a specific category with invalid fields' do
+    sign_in(@user)
+    get new_task_path
+    assert_select 'label', count: 4
+    assert_select 'h1', 'Add Task'
+    assert_no_difference 'Task.count' do
+      post tasks_path, params: { task: { name: '', details: 'Lorem ipsum', deadline: '', category_id: @coding_category.id } }
+    end
+    assert_response :success
+    assert_select 'label', count: 4
+    assert_select 'h1', 'Add Task'
+    assert_select 'div#error_explanation'
+  end
+
   test 'can edit a task' do
     sign_in(@user)
     get task_path(@task)
@@ -65,6 +79,14 @@ class TaskFlowTest < ActionDispatch::IntegrationTest
     assert_select 'h2', "Today (#{Date.current})"
     assert_select 'p', @task.name
     assert_select '[data-deadline]', 'Today'
+  end
+
+  test 'can view all tasks' do
+    sign_in(@user)
+    get root_path
+    @user.tasks.each do |task|
+      assert_select 'p', task.name
+    end
   end
 
   test 'can delete all completed tasks' do
