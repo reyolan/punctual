@@ -13,6 +13,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     assert user_logged_in?
     assert_redirected_to authenticated_root_url
     follow_redirect!
+    assert_response :success
     assert_not flash.empty?
     assert_select 'h1', "Welcome, #{get_email_username(@user.email)}!"
   end
