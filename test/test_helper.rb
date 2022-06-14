@@ -10,6 +10,15 @@ class ActiveSupport::TestCase
 
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
+  include ApplicationHelper
 
   # Add more helper methods to be used by all tests here...
+end
+
+class ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
+  def user_logged_in?
+    request.env['warden'].authenticated?(:user)
+  end
 end

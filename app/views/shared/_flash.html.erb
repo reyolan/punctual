@@ -5,7 +5,7 @@
     </div>
     <div class="p-4 flex flex-col justify-center">
       <p class="font-medium text-xl">SUCCESS</p>
-      <p class="text-lg"> <%= flash[:success] || flash[:notice] %></p>
+      <p class="text-lg" id="alert-message"><%= flash[:success] || flash[:notice] %></p>
     </div>
   </div>
 <% end %>
@@ -16,7 +16,7 @@
     </div>
     <div class="p-4 flex flex-col justify-center">
       <p class="font-medium text-xl">ERROR</p>
-      <p class="text-lg"> <%= flash[:danger] || flash[:alert] %></p>
+      <p class="text-lg" id="alert-message"><%= flash[:danger] || flash[:alert] %></p>
     </div>
   </div>
 <% end %>
