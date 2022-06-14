@@ -1,3 +1,4 @@
+<% provide(:title, 'Reset Password')%>
 <%= render "shared/error_msg", object: resource %>
 <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post , class: 'bg-slate-100 max-w-lg m-auto p-6 rounded-md mt-4'}) do |f| %>
   <h1 class="font-bold text-4xl mb-4 text-center">Forgot your password?</h1>
