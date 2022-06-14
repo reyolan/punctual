@@ -1,24 +1,53 @@
-# README
+# Punctual
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+An app to remember tasks and set deadline for each.
 
-Things you may want to cover:
+## Features
 
-* Ruby version
+- Create, read, update, delete category for task organization.
+- Create, read, update, delete task in each category.
+- User Authentication using devise.
 
-* System dependencies
+## Getting started
 
-* Configuration
+To get started with the app, clone the repo and access the created directory:
 
-* Database creation
+```
+$ git clone git@github.com:reyolan/punctual.git
+$ cd punctual
+```
 
-* Database initialization
+Make sure you're using a compatible version of Node.js:
 
-* How to run the test suite
+```
+$ node -v
+v16.15.0
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+Install the needed gems and node modules:
 
-* Deployment instructions
+```
+$ bundle install
+$ yarn
+```
 
-* ...
+Next, create and setup the database (database migrations/schema):
+
+```
+$ bin/rails db:create
+$ bin/rails db:setup
+```
+
+Finally, run the test suite to verify that all features work correctly:
+
+```
+$ bin/rails test
+```
+
+Run the app in a local server:
+
+```
+$ bin/rails server
+```
+
+You can then visit the site with this URL: http://localhost:3000
