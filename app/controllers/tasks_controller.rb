@@ -8,7 +8,7 @@ class TasksController < ApplicationController
   end
 
   def new
-    @task = Task.new
+    @task = @category ? @category.tasks.build : current_user.tasks.build
   end
 
   def show; end
