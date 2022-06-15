@@ -1,9 +1,9 @@
 module CategoriesHelper
   def count_not_completed_task(category)
-    category.tasks.where(completed: false).count
+    category.tasks.not_completed.count
   end
 
   def count_completed_task(category)
-    category.tasks.where(completed: true).count
+    category.tasks.completed.count
   end
 end

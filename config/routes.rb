@@ -4,8 +4,8 @@ Rails.application.routes.draw do
   end
   devise_for :users
 
-  delete 'tasks/destroy_completed', to: 'tasks#destroy_completed'
   resources :tasks, only: %i[new create]
+  delete 'tasks/destroy_completed', to: 'tasks#destroy_completed'
 
   resources :categories do
     resources :tasks, shallow: true, except: :index

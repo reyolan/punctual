@@ -10,9 +10,11 @@ user_one = User.create!(email: 'example@example.com',
 end
 
 category_one = user_one.categories.first
+another_category_one = user_one.categories.find(2)
 
 10.times do |n|
   category_one.tasks.create!(name: "Task-u1 #{n}", details: "Description-u1 #{n}", deadline: Date.current)
+  another_category_one.tasks.create!(name: "Task-u11 #{n}", details: "Description-u11 #{n}", deadline: Date.current)
 end
 
 
