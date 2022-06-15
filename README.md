@@ -34,7 +34,6 @@ $ yarn
 Next, create and setup the database (database migrations/schema):
 
 ```
-$ bin/rails db:create
 $ bin/rails db:setup
 ```
 
@@ -51,3 +50,12 @@ $ bin/rails server
 ```
 
 You can then visit the site with this URL: http://localhost:3000
+
+To receive e-mails, install mailcatcher gem:
+
+```
+$ gem install mailcatcher
+$ mailcatcher
+```
+
+You can then visit http://127.0.0.1:1080/ to receive e-mails.
