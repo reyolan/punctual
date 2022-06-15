@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
+  devise_for :users
   devise_scope :user do
     get '/users', to: 'devise/registrations#new'
   end
-  devise_for :users
 
   resources :tasks, only: %i[new create]
   delete 'tasks/destroy_completed', to: 'tasks#destroy_completed'
