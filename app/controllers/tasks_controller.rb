@@ -55,9 +55,7 @@ class TasksController < ApplicationController
   end
 
   def set_category
-    return unless params[:category_id]
-
-    @category = current_user.categories.find(params[:category_id])
+    @category = current_user.categories.find_by(id: params[:category_id])
   end
 
   def set_category_collection
