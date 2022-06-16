@@ -6,7 +6,7 @@ class CategoryFlowTest < ActionDispatch::IntegrationTest
     @first_category = @user.categories.first
   end
 
-  test 'can create a category' do
+  test 'should create a category' do
     get new_user_session_path
     sign_in(@user)
     get new_category_path
@@ -22,7 +22,7 @@ class CategoryFlowTest < ActionDispatch::IntegrationTest
     assert_select 'h1', name
   end
 
-  test 'cannot create a category with invalid information' do
+  test 'should not create a category with invalid information' do
     sign_in(@user)
     get new_category_path
     assert_select 'label'
@@ -36,7 +36,7 @@ class CategoryFlowTest < ActionDispatch::IntegrationTest
     assert_select 'div#error_explanation'
   end
 
-  test 'can edit a category' do
+  test 'should edit a category' do
     sign_in(@user)
     get category_path(@first_category)
     assert_select 'h1', @first_category.name
@@ -50,14 +50,14 @@ class CategoryFlowTest < ActionDispatch::IntegrationTest
     assert_select 'h1', name
   end
 
-  test 'cannot edit a category with invalid information' do
+  test 'should not edit a category with invalid information' do
     sign_in(@user)
     get category_path(@first_category)
     patch category_path(@first_category), params: { category: { name: 'a' * 25 } }
     assert_select 'div#error_explanation'
   end
 
-  test 'can see all the categories of the user' do
+  test 'should see all the categories of the user' do
     sign_in(@user)
     get categories_path
     assert_select 'h1', 'Categories'
@@ -66,7 +66,7 @@ class CategoryFlowTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'can view a specific category to show its details' do
+  test 'should view a specific category to show its details' do
     sign_in(@user)
     get category_path(@first_category)
     assert_select 'h1', @first_category.name

@@ -7,16 +7,18 @@ class TaskFlowTest < ActionDispatch::IntegrationTest
     @task = tasks(:valid_task)
   end
 
-  test 'can create a task for a specific category' do
+  test 'should create a task for a specific category' do
     sign_in(@user)
     get new_task_path
     assert_select 'label', count: 4
     assert_select 'h1', 'Add Task'
     name = 'Learn Ruby'
     assert_difference 'Task.count', 1 do
-      post tasks_path, params: { task: { name:, details: 'Lorem ipsum', deadline: '', category_id: @coding_category.id } }
+      post tasks_path, params: { task: { name:, details: 'Lorem ipsum', deadline: '',
+                                         category_id: @coding_category.id } }
     end
-    assert_redirected_to @user.tasks.last
+    assert_redirected_to Task.last
+    assert_equal @user.id, Task.last.category.user_id
     follow_redirect!
     assert_response :success
     assert_select 'h1', name
@@ -24,13 +26,14 @@ class TaskFlowTest < ActionDispatch::IntegrationTest
     assert_equal "Successfully added #{name.inspect} task.", flash[:success]
   end
 
-  test 'cannot create a task for a specific category with invalid fields' do
+  test 'should not create a task for a specific category with invalid fields' do
     sign_in(@user)
     get new_task_path
     assert_select 'label', count: 4
     assert_select 'h1', 'Add Task'
     assert_no_difference 'Task.count' do
-      post tasks_path, params: { task: { name: '', details: 'Lorem ipsum', deadline: '', category_id: @coding_category.id } }
+      post tasks_path, params: { task: { name: '', details: 'Lorem ipsum', deadline: '',
+                                         category_id: @coding_category.id } }
     end
     assert_response :success
     assert_select 'label', count: 4
@@ -38,7 +41,7 @@ class TaskFlowTest < ActionDispatch::IntegrationTest
     assert_select 'div#error_explanation'
   end
 
-  test 'can edit a task' do
+  test 'should edit a task' do
     sign_in(@user)
     get task_path(@task)
     assert_select 'a[href=?]', edit_task_path(@task)
@@ -53,7 +56,7 @@ class TaskFlowTest < ActionDispatch::IntegrationTest
     assert_select 'h1', name
   end
 
-  test 'can view a task' do
+  test 'should view a task' do
     sign_in(@user)
     get task_path(@task)
     assert_select 'h1', @task.name
@@ -62,7 +65,7 @@ class TaskFlowTest < ActionDispatch::IntegrationTest
     assert_select 'p', show_task_state(@task)
   end
 
-  test 'can delete a task' do
+  test 'should delete a task' do
     sign_in(@user)
     get task_path(@task)
     assert_select 'a[href=?]', task_path(@task)
@@ -73,7 +76,7 @@ class TaskFlowTest < ActionDispatch::IntegrationTest
     assert_not flash.empty?
   end
 
-  test 'can view tasks for today' do
+  test 'should view tasks for today' do
     sign_in(@user)
     get root_path
     assert_select 'h2', "Today (#{Date.current})"
@@ -81,7 +84,7 @@ class TaskFlowTest < ActionDispatch::IntegrationTest
     assert_select '[data-deadline]', 'Today'
   end
 
-  test 'can view all tasks' do
+  test 'should view all tasks' do
     sign_in(@user)
     get root_path
     @user.tasks.each do |task|
@@ -89,7 +92,7 @@ class TaskFlowTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'can delete all completed tasks' do
+  test 'should delete all completed tasks' do
     sign_in(@user)
     get root_path
     assert_select 'a[href=?]', tasks_destroy_completed_path
@@ -97,7 +100,7 @@ class TaskFlowTest < ActionDispatch::IntegrationTest
     assert_equal 0, @user.tasks.completed.count
   end
 
-  test 'can delete all completed tasks in a specific category' do
+  test 'should delete all completed tasks in a specific category' do
     sign_in(@user)
     category = categories(:category_one)
     get category_path(category)
