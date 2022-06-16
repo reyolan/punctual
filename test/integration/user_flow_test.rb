@@ -73,14 +73,22 @@ class UserFlowTest < ActionDispatch::IntegrationTest
     get edit_user_registration_path
     assert_select 'a[href=?]', user_registration_path
     assert_select 'input[value=?]', 'Update'
-    # assert_difference 'ActionMailer::Base.deliveries.size', 1 do
-    #   patch user_registration_path, params: { session: { email: 'example126@example.com',
-    #                                                      current_password: @user.encrypted_password } }
-    # end
+    new_email = 'mike123@example.com'
+    assert_difference 'ActionMailer::Base.deliveries.size', 1 do
+      patch user_registration_path, params: { user: { email: new_email,
+                                                      current_password: 'password' } }
+    end
+    assert_equal new_email, @user.reload.unconfirmed_email
+    received_mail = ActionMailer::Base.deliveries.last
+    confirmation_token = @user.confirmation_token
+    assert_match user_confirmation_path(confirmation_token:), received_mail.body.to_s
+    get user_confirmation_path(confirmation_token:)
+    assert_equal new_email, @user.reload.email
   end
 
   test 'should delete account' do
     sign_in(@user)
+    assert User.all.exists?(@user.id)
     get edit_user_registration_path
     assert_select 'a[href=?]', user_registration_path
     assert_select 'a', 'Delete account'
@@ -88,5 +96,6 @@ class UserFlowTest < ActionDispatch::IntegrationTest
       delete user_registration_path
     end
     assert_redirected_to root_url
+    assert_not User.all.exists?(@user.id)
   end
 end

@@ -1,4 +1,4 @@
-<p>Hello, <%= @email %>!</p>
-<p>Thanks for signing up with Punctual! You can confirm your account email through the link below:</p>
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
-<p> The link above will expire within a week of registration.</p>
+<p>Good day, <%= @email %>!</p>
+<p>You can confirm your account email through the link below:</p>
+<p><%= link_to 'Confirm Punctual Account', confirmation_url(@resource, confirmation_token: @token) %></p>
+<p>The link above will expire within a week of the sent mail date.</p>
