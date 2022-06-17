@@ -1,5 +1,6 @@
 class CategoriesController < ApplicationController
   before_action :set_category, only: %i[show edit update destroy]
+  before_action :store_location, only: %i[show]
 
   def index
     @categories = current_user.categories.asc_name

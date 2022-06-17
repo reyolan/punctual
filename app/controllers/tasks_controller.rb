@@ -2,6 +2,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
   before_action :set_category_collection, only: %i[new create edit update]
   before_action :set_category, only: %i[new destroy_completed]
+  before_action :store_location, only: %i[index]
 
   def index
     @tasks = query_tasks(current_user)
@@ -16,7 +17,7 @@ class TasksController < ApplicationController
   def create
     @task = current_user.tasks.build(task_params)
     if @task.save
-      redirect_to @task, success: "Successfully added #{@task.name.inspect} task."
+      redirect_to previous_location(fallback: @task), success: "Successfully added #{@task.name.inspect} task."
     else
       render :new
     end
@@ -26,10 +27,10 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      if request.referer == root_url || request.referer == category_url(@task.category)
-        redirect_to(request.referer)
+      if request.referer == edit_task_url(@task)
+        redirect_to @task, success: "Successfully updated #{@task.name.inspect} task."
       else
-        redirect_to(@task, success: 'Successfully updated task.')
+        redirect_to previous_location(fallback: root_url)
       end
     else
       render :edit
@@ -39,7 +40,7 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     flash[:success] = "Successfully deleted #{@task.name.inspect} task."
-    request.referer == root_url ? redirect_to(root_url) : redirect_to(@task.category)
+    redirect_to previous_location(fallback: root_url), success: "Successfully deleted #{@task.name.inspect} task."
   end
 
   def destroy_completed
@@ -55,7 +56,9 @@ class TasksController < ApplicationController
   end
 
   def set_category
-    @category = current_user.categories.find_by(id: params[:category_id])
+    return unless params[:category_id]
+
+    @category = current_user.categories.find(params[:category_id])
   end
 
   def set_category_collection

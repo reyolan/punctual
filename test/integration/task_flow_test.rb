@@ -20,7 +20,6 @@ class TaskFlowTest < ActionDispatch::IntegrationTest
     assert_redirected_to Task.last
     assert_equal @user.id, Task.last.category.user_id
     follow_redirect!
-    assert_response :success
     assert_select 'h1', name
     assert_not flash.empty?
     assert_equal "Successfully added #{name.inspect} task.", flash[:success]
@@ -35,7 +34,6 @@ class TaskFlowTest < ActionDispatch::IntegrationTest
       post tasks_path, params: { task: { name: '', details: 'Lorem ipsum', deadline: '',
                                          category_id: @coding_category.id } }
     end
-    assert_response :success
     assert_select 'label', count: 4
     assert_select 'h1', 'Add Task'
     assert_select 'div#error_explanation'
@@ -47,12 +45,15 @@ class TaskFlowTest < ActionDispatch::IntegrationTest
     assert_select 'a[href=?]', edit_task_path(@task)
     get edit_task_path(@task)
     name = 'Lorem ipsumsss'
-    patch task_path(@task), params: { task: { name: } }
+    patch task_path(@task), params: { task: { name:, category_id: @task.category_id, deadline: @task.deadline,
+                                              details: @task.details } },
+                            headers: { 'HTTP_REFERER' => edit_task_url(@task) }
+    @task.reload
     assert_not flash.empty?
-    assert_equal 'Successfully updated task.', flash[:success]
+    assert_equal "Successfully updated #{@task.name.inspect} task.", flash[:success]
+    assert_equal name, @task.name
     assert_redirected_to @task
     follow_redirect!
-    assert_response :success
     assert_select 'h1', name
   end
 
@@ -72,14 +73,13 @@ class TaskFlowTest < ActionDispatch::IntegrationTest
     assert_difference 'Task.count', -1 do
       delete task_path(@task)
     end
-    assert_redirected_to @task.category
+    assert_redirected_to root_url
     assert_not flash.empty?
   end
 
   test 'should view tasks for today' do
     sign_in(@user)
     get root_path
-    assert_select 'h2', "Today (#{Date.current})"
     assert_select 'p', @task.name
     assert_select '[data-deadline]', 'Today'
   end

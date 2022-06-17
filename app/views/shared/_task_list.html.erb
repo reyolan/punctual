@@ -1,5 +1,5 @@
 <div class="lg:w-[calc(100%-128px)] m-auto" id="task-list">
-  <h2 class="font-bold text-3xl mb-1">Today (<%= Date.current %>)</h2>
+  <h2 class="font-bold text-3xl mb-1">Today (<%= Date.current %>) - <%=@tasks[:today].count %></h2>
   <div class='bg-slate-100 p-3 max-h-64 rounded overflow-y-auto'>
     <% if @tasks[:today].count > 0 %>
       <ul class="flex flex-col gap-2">
@@ -24,7 +24,7 @@
       <p class="text-center font-semibold text-xl">No Tasks today</p>
     <% end %>
   </div>
-  <h2 class="font-bold text-3xl mt-2 mb-1">Tomorrow onwards</h2>
+  <h2 class="font-bold text-3xl mt-2 mb-1">Tomorrow onwards - <%=@tasks[:not_completed].count %></h2>
   <div class='bg-slate-100 p-3 max-h-64 rounded overflow-y-auto'>
     <% if @tasks[:not_completed].count > 0 %>
       <ul class="flex flex-col gap-2">
@@ -50,7 +50,7 @@
     <% end %>
   </div>
   <div class="flex justify-between flex-wrap items-center mt-2 mb-1">
-    <h2 class="font-bold text-3xl">Completed</h2>
+    <h2 class="font-bold text-3xl">Completed - <%=@tasks[:completed].count %></h2>
     <% if @tasks[:completed].count > 0%>
       <%= link_to conditional_destroy_completed_path(@category), method: :delete, data: { confirm: "Are you sure you want to delete all completed tasks#{' in this category' if @category}?" },
                                                                                class: 'bg-slate-400 px-2 py-1 rounded-md cursor-pointer font-medium text-md hover:bg-slate-500' do %>
