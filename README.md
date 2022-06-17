@@ -43,10 +43,11 @@ Finally, run the test suite to verify that all features work correctly:
 $ bin/rails test
 ```
 
-Run the app in a local server:
+Run the app by starting the Rails dev server and Vite.js dev server:
 
 ```
 $ bin/rails server
+$ bin/vite dev
 ```
 
 You can then visit the site with this URL: http://localhost:3000
