@@ -5,7 +5,7 @@ class TasksController < ApplicationController
   before_action :store_location, only: %i[index]
 
   def index
-    @tasks = query_tasks(current_user)
+    query_tasks(current_user)
   end
 
   def new
