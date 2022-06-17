@@ -3,6 +3,6 @@ class Task < ApplicationRecord
 
   validates :name, presence: true
 
-  scope :completed, -> { where(completed: true).order(:deadline) }
-  scope :not_completed, -> { where(completed: false).order(:deadline) }
+  scope :completed, -> { where(completed: true) }
+  scope :not_completed, -> { where(completed: false) }
 end
