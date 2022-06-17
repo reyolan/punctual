@@ -7,7 +7,7 @@ class CategoriesController < ApplicationController
   end
 
   def show
-    @tasks = query_tasks(@category)
+    query_tasks(@category)
   end
 
   def new
