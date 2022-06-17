@@ -1,15 +1,11 @@
 # frozen_string_literal: true
 
 class Users::SessionsController < Devise::SessionsController
-  # POST /resource/sign_in
-  def create
-    super
-    flash.delete(:notice)
-  end
+  after_action :remove_notice, only: %i[destroy create]
 
-  # DELETE /resource/sign_out
-  def destroy
-    super
+  private
+
+  def remove_notice
     flash.delete(:notice)
   end
 end
