@@ -31,13 +31,6 @@ $ git clone git@github.com:reyolan/punctual.git
 $ cd punctual
 ```
 
-Make sure you're using a compatible version of Node.js:
-
-```
-$ node -v
-v16.15.0
-```
-
 Install the needed gems and node modules:
 
 ```
