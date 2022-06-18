@@ -13,6 +13,14 @@ An app to remember tasks and set deadline for each.
 Below is the ERD of the application:
 ![ERD of the Application](https://drive.google.com/uc?export=view&id=1xB1kFGPvxB3hvrqYRwzofKEYX6edsIYa)
 
+## Technologies
+
+- Ruby 3.1.2
+- Rails 6.1.6
+- PostgreSQL 14.2
+- NodeJS 16.15.0
+- Yarn 1.22.18
+
 ## Getting started
 
 To get started with the app, clone the repo and access the created directory:
