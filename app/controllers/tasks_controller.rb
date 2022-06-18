@@ -39,7 +39,6 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    flash[:success] = "Successfully deleted #{@task.name.inspect} task."
     redirect_to previous_location(fallback: root_url), success: "Successfully deleted #{@task.name.inspect} task."
   end
 
