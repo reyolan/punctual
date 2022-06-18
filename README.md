@@ -8,6 +8,11 @@ An app to remember tasks and set deadline for each.
 - Create, read, update, delete task in each category.
 - User Authentication using devise.
 
+## Entity Relationship Diagram
+
+- Below is the ERD of the application:
+  ![ERD of the Application](https://drive.google.com/uc?export=view&id=1xB1kFGPvxB3hvrqYRwzofKEYX6edsIYa)
+
 ## Getting started
 
 To get started with the app, clone the repo and access the created directory:
