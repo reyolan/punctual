@@ -11,6 +11,7 @@ An app to remember tasks and set deadline for each.
 ## Entity Relationship Diagram
 
 Below is the ERD of the application:
+
 ![ERD of the Application](https://drive.google.com/uc?export=view&id=1xB1kFGPvxB3hvrqYRwzofKEYX6edsIYa)
 
 ## Technologies
