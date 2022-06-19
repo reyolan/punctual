@@ -95,17 +95,17 @@ class TaskFlowTest < ActionDispatch::IntegrationTest
   test 'should delete all completed tasks' do
     sign_in(@user)
     get root_path
-    assert_select 'a[href=?]', tasks_destroy_completed_path
-    delete tasks_destroy_completed_path
+    assert_select 'a[href=?]', destroy_all_completed_tasks_path
+    delete destroy_all_completed_tasks_path
     assert_equal 0, @user.tasks.completed.count
   end
 
   test 'should delete all completed tasks in a specific category' do
     sign_in(@user)
     category = categories(:category_one)
-    get category_path(category)
-    assert_select 'a[href=?]', category_tasks_destroy_completed_path(category)
-    delete category_tasks_destroy_completed_path(category)
+    get category_tasks_path(category)
+    assert_select 'a[href=?]', destroy_all_completed_category_tasks_path(category)
+    delete destroy_all_completed_category_tasks_path(category)
     assert_equal 0, category.tasks.completed.count
   end
 end

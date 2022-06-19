@@ -1,7 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
   before_action :set_category_collection, only: %i[new create edit update]
-  before_action :set_category, only: %i[new destroy_completed]
   before_action :store_location, only: %i[index]
 
   def index
@@ -9,7 +8,7 @@ class TasksController < ApplicationController
   end
 
   def new
-    @task = @category ? @category.tasks.build : current_user.tasks.build
+    @task = current_user.tasks.build
   end
 
   def show; end
@@ -42,22 +41,10 @@ class TasksController < ApplicationController
     redirect_to previous_location(fallback: root_url), success: "Successfully deleted #{@task.name.inspect} task."
   end
 
-  def destroy_completed
-    @category ? @category.tasks.completed.destroy_all : current_user.tasks.completed.destroy_all
-    redirect_back(fallback_location: root_url,
-                  success: "Successfully deleted all completed tasks#{' in this category' if @category}.")
-  end
-
   private
 
   def task_params
     params.require(:task).permit(:name, :deadline, :details, :completed, :category_id)
-  end
-
-  def set_category
-    return unless params[:category_id]
-
-    @category = current_user.categories.find(params[:category_id])
   end
 
   def set_category_collection

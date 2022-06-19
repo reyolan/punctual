@@ -1,0 +1,2 @@
+module Tasks::CompletedTasksHelper
+end

@@ -1,13 +1,8 @@
 class CategoriesController < ApplicationController
-  before_action :set_category, only: %i[show edit update destroy]
-  before_action :store_location, only: %i[show]
+  before_action :set_category, only: %i[edit update destroy]
 
   def index
     @categories = current_user.categories.asc_name
-  end
-
-  def show
-    query_tasks(@category)
   end
 
   def new
@@ -17,7 +12,7 @@ class CategoriesController < ApplicationController
   def create
     @category = current_user.categories.build(category_params)
     if @category.save
-      redirect_to @category, success: "Successfully added #{@category.name.inspect} category."
+      redirect_to category_tasks_url(@category), success: "Successfully added #{@category.name.inspect} category."
     else
       render :new
     end
@@ -27,7 +22,7 @@ class CategoriesController < ApplicationController
 
   def update
     if @category.update(category_params)
-      redirect_to @category, success: "Successfully updated #{@category.name.inspect} category."
+      redirect_to category_tasks_url(@category), success: "Successfully updated #{@category.name.inspect} category."
     else
       render :edit
     end

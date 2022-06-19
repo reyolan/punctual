@@ -1,6 +1,6 @@
 <li class="bg-slate-300 p-4 rounded-md w-64 h-64 m-auto hover:bg-slate-400">
   <div class="flex flex-col h-full justify-between">
-    <%= link_to category, class: 'flex flex-col justify-between gap-5' do %>
+    <%= link_to category_tasks_path(category), class: 'flex flex-col justify-between gap-5' do %>
       <h1 class="font-bold text-3xl h-16 break-words"><%= category.name %></h1>
       <div class="text-left mb-5 text-center mt-5">
         <p class="text-lg font-medium"><i class="las la-list mr-1"></i><%= count_not_completed_task(category)%> incomplete <%= "task".pluralize(count_not_completed_task(category)) %></p>

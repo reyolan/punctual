@@ -38,13 +38,13 @@ class CategoryFlowTest < ActionDispatch::IntegrationTest
 
   test 'should edit a category' do
     sign_in(@user)
-    get category_path(@first_category)
+    get category_tasks_path(@first_category)
     assert_select 'h1', @first_category.name
     name = 'Example123'
     patch category_path(@first_category), params: { category: { name: } }
     assert_not flash.empty?
     assert_equal "Successfully updated #{name.inspect} category.", flash[:success]
-    assert_redirected_to @first_category
+    assert_redirected_to category_tasks_url(@first_category)
     follow_redirect!
     assert_response :success
     assert_select 'h1', name
@@ -52,7 +52,7 @@ class CategoryFlowTest < ActionDispatch::IntegrationTest
 
   test 'should not edit a category with invalid information' do
     sign_in(@user)
-    get category_path(@first_category)
+    get category_tasks_path(@first_category)
     patch category_path(@first_category), params: { category: { name: 'a' * 25 } }
     assert_select 'div#error_explanation'
   end
@@ -68,7 +68,7 @@ class CategoryFlowTest < ActionDispatch::IntegrationTest
 
   test 'should view a specific category to show its details' do
     sign_in(@user)
-    get category_path(@first_category)
+    get category_tasks_path(@first_category)
     assert_select 'h1', @first_category.name
     assert_select 'div#task-list'
   end
