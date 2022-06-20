@@ -8,15 +8,14 @@ Rails.application.routes.draw do
   end
 
   resources :tasks, except: :index
-
   scope module: 'tasks' do
-    resource :completed_tasks, only: :destroy
+    delete '/completed_tasks', to: 'completed_tasks#destroy_all'
   end
 
   resources :categories, except: :show do
     scope module: 'categories' do
       resources :tasks, only: %i[new index]
-      resource :completed_tasks, only: :destroy
+      delete '/completed_tasks', to: 'completed_tasks#destroy_all'
     end
   end
 
