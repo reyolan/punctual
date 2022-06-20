@@ -12,4 +12,10 @@ class Categories::TasksController < ApplicationController
     @task = @category.tasks.build
     render 'tasks/new'
   end
+
+  private
+
+  def set_category_collection
+    @categories = current_user.categories.asc_name
+  end
 end

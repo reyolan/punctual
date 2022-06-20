@@ -31,6 +31,6 @@ module ApplicationHelper
   end
 
   def conditional_destroy_completed_path(category)
-    category ? destroy_all_completed_category_tasks_path(category) : destroy_all_completed_tasks_path
+    category ? category_completed_tasks_path(category) : completed_tasks_path
   end
 end

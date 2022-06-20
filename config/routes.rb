@@ -7,17 +7,16 @@ Rails.application.routes.draw do
     root 'tasks#index', as: 'authenticated_root'
   end
 
-  resources :tasks do
-    scope module: 'tasks' do
-      delete :destroy_all_completed, on: :collection, to: 'completed_tasks#destroy_all'
-    end
+  resources :tasks, except: :index
+
+  scope module: 'tasks' do
+    resource :completed_tasks, only: :destroy
   end
 
   resources :categories, except: :show do
     scope module: 'categories' do
-      resources :tasks, only: %i[new index] do
-        delete :destroy_all_completed, on: :collection, to: 'completed_tasks#destroy_all'
-      end
+      resources :tasks, only: %i[new index]
+      resource :completed_tasks, only: :destroy
     end
   end
 
