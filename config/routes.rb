@@ -9,13 +9,13 @@ Rails.application.routes.draw do
 
   resources :tasks, except: :index
   scope module: 'tasks' do
-    delete '/completed_tasks', to: 'completed_tasks#destroy_all'
+    delete 'completed_tasks', to: 'completed_tasks#destroy_all'
   end
 
   resources :categories, except: :show do
     scope module: 'categories' do
       resources :tasks, only: %i[new index]
-      delete '/completed_tasks', to: 'completed_tasks#destroy_all'
+      delete 'completed_tasks', to: 'completed_tasks#destroy_all'
     end
   end
 
