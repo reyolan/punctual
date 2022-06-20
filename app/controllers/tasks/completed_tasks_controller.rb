@@ -4,6 +4,3 @@ class Tasks::CompletedTasksController < ApplicationController
     redirect_to root_url, success: 'Successfully deleted all completed tasks in this category.'
   end
 end
-
-# CompletedTasks (new destroy)
-# CompletedTasksCollection (Destroy all completed tasks)
