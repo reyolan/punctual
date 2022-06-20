@@ -98,6 +98,7 @@ class TaskFlowTest < ActionDispatch::IntegrationTest
     assert_select 'a[href=?]', completed_tasks_path
     delete completed_tasks_path
     assert_equal 0, @user.tasks.completed.count
+    assert_redirected_to root_url
   end
 
   test 'should delete all completed tasks in a specific category' do
@@ -107,5 +108,6 @@ class TaskFlowTest < ActionDispatch::IntegrationTest
     assert_select 'a[href=?]', category_completed_tasks_path(category)
     delete category_completed_tasks_path(category)
     assert_equal 0, category.tasks.completed.count
+    assert_redirected_to category_tasks_url(category)
   end
 end
