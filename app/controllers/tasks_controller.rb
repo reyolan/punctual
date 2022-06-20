@@ -26,11 +26,7 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      if request.referer == edit_task_url(@task)
-        redirect_to @task, success: "Successfully updated #{@task.name.inspect} task."
-      else
-        redirect_to previous_location(fallback: root_url)
-      end
+      redirect_to @task, success: "Successfully updated #{@task.name.inspect} task."
     else
       render :edit
     end
@@ -44,7 +40,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :deadline, :details, :completed, :category_id)
+    params.require(:task).permit(:name, :deadline, :details, :category_id)
   end
 
   def set_category_collection

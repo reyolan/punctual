@@ -46,8 +46,7 @@ class TaskFlowTest < ActionDispatch::IntegrationTest
     get edit_task_path(@task)
     name = 'Lorem ipsumsss'
     patch task_path(@task), params: { task: { name:, category_id: @task.category_id, deadline: @task.deadline,
-                                              details: @task.details } },
-                            headers: { 'HTTP_REFERER' => edit_task_url(@task) }
+                                              details: @task.details } }
     @task.reload
     assert_not flash.empty?
     assert_equal "Successfully updated #{@task.name.inspect} task.", flash[:success]
