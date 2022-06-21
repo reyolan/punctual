@@ -1,7 +1,6 @@
 class Categories::TasksController < ApplicationController
   include CategoryScoped
 
-  before_action :set_category_collection, only: :new
   before_action :store_location, only: :index
 
   def index
@@ -11,6 +10,7 @@ class Categories::TasksController < ApplicationController
   end
 
   def new
+    @categories = set_category_collection
     @task = @category.tasks.build
     render 'tasks/new'
   end
@@ -18,6 +18,6 @@ class Categories::TasksController < ApplicationController
   private
 
   def set_category_collection
-    @categories = current_user.categories.asc_name
+    current_user.categories.asc_name
   end
 end
