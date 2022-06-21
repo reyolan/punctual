@@ -1,2 +1,0 @@
-module Categories::CompletedTasksHelper
-end

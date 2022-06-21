@@ -14,4 +14,12 @@ class Task < ApplicationRecord
   scope :deadline_today, -> { where(deadline: Date.current) }
   scope :completed, -> { where(completed: true) }
   scope :not_completed, -> { where(completed: false) }
+
+  def complete
+    update_attribute(:completed, true)
+  end
+
+  def uncomplete
+    update_attribute(:completed, false)
+  end
 end

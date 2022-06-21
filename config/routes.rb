@@ -9,18 +9,18 @@ Rails.application.routes.draw do
 
   resources :tasks, except: :index do
     scope module: 'tasks' do
-      resource :complete, only: :update, controller: 'completed_tasks'
+      resource :complete, only: %i[create destroy], controller: 'completed_tasks'
     end
   end
 
   scope module: 'tasks' do
-    delete 'completed_tasks', to: 'completed_tasks#destroy_all'
+    resource :completed_tasks, only: :destroy, controller: 'all_completed_tasks'
   end
 
   resources :categories, except: :show do
     scope module: 'categories' do
       resources :tasks, only: %i[new index]
-      delete 'completed_tasks', to: 'completed_tasks#destroy_all'
+      resource :completed_tasks, only: :destroy, controller: 'all_completed_tasks'
     end
   end
 
