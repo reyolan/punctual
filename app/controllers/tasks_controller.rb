@@ -4,7 +4,10 @@ class TasksController < ApplicationController
   before_action :store_location, only: %i[index]
 
   def index
-    query_tasks(current_user)
+    @tasks_today = current_user.tasks.not_completed.where(deadline: Date.current)
+    @tasks_not_completed = current_user.tasks.where.not(deadline: Date.current)
+                                .or(current_user.tasks.where(deadline: nil)).not_completed.order(:deadline)
+    @tasks_completed = current_user.tasks.completed.order(:name)
   end
 
   def new
