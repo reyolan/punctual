@@ -5,10 +5,9 @@ class TasksController < ApplicationController
 
   def index
     tasks = current_user.tasks.includes(:category)
-    @tasks_today = tasks.not_completed.where(deadline: Date.current)
-    @tasks_not_completed = tasks.where.not(deadline: Date.current)
-                                .or(tasks.where(deadline: nil)).not_completed.order(:deadline)
-    @tasks_completed = tasks.completed.order(:name)
+    @tasks_today = tasks.not_completed_deadline_today
+    @tasks_not_completed = tasks.not_completed_deadline_not_today
+    @tasks_completed = tasks.completed_asc_name
   end
 
   def new

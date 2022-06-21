@@ -5,10 +5,9 @@ class Categories::TasksController < ApplicationController
   before_action :store_location, only: :index
 
   def index
-    @tasks_today = @category.tasks.not_completed.where(deadline: Date.current)
-    @tasks_not_completed = @category.tasks.where.not(deadline: Date.current)
-                                    .or(@category.tasks.where(deadline: nil)).not_completed.order(:deadline)
-    @tasks_completed = @category.tasks.completed.order(:name)
+    @tasks_today = @category.tasks.not_completed_deadline_today
+    @tasks_not_completed = @category.tasks.not_completed_deadline_not_today
+    @tasks_completed = @category.tasks.completed_asc_name
   end
 
   def new
