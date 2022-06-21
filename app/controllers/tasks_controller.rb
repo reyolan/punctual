@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
   before_action :set_category_collection, only: %i[new create edit update]
-  before_action :store_location, only: %i[index]
+  before_action :store_location, only: :index
 
   def index
     tasks = current_user.tasks.includes(:category)
