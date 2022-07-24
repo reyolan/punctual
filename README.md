@@ -67,3 +67,8 @@ $ mailcatcher
 ```
 
 You can then visit http://127.0.0.1:1080/ to see the e-mails received.
+
+## Test account
+
+- Email: example@example.com
+- Password: 1234567890
