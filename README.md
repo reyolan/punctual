@@ -1,6 +1,6 @@
 # Punctual
 
-An app to remember tasks and set deadline for each.
+A journal app to remember tasks and set deadline for each.
 
 ## Features
 
